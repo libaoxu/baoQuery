@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BaoQuery</title>
+	<meta name="author" content="libaoxu">
+	<script src="BaoQuery.js"></script>
+<style></style>
+<script>
+/*
+	jq 中的所有的事件操作都是绑定形式, 不会互相覆盖
+ */
+$(function () {
+	//console.log($('#div1'));
+
+});
+$(function () {
+	console.log($('#div2').html());
+
+	$('.box').html (123123);
+
+	$('span').html('leishuzu');
+
+	$(window);
+
+	$('#div3').on('click', fnClick).click(function () {
+		alert($(this));
+
+	});
+
+	$('.sub').click(function () {
+		alert('sub');
+		return false;
+	});
+
+	setTimeout(function () {
+		$('#div3').off('click', fnClick);
+	},1000);
+
+	function fnClick (argument) {
+		alert('fnClick');
+	}
+
+	$('#div3').hover(function() {
+		this.style.backgroundColor = 'red';
+	}, function() {
+		this.style.backgroundColor = 'blue';
+	});
+
+	$('.pp').css('color',' red').css({
+		'backgroundColor': ' green'
+	}).attr('title','pp-box').attr({
+		'data-type': 'pp-region'
+	}).eq(1).css('color','#fff');
+
+	console.log($('.pp').css('color'));
+
+	console.log($('.pp').attr('class'));
+
+	console.log( $('#pp3').index($('.pp')) );
+	console.log( $('#pp3').index( document.getElementsByClassName('pp')) );
+	console.log( $('#pp3').index('.pp') );
+
+	$('#ul1').find('li').css({
+		'backgroundColor': 'blue'
+	});
+
+	$('#ul1').find('.item').attr('data-hasClick', true);
+
+	$('.box-block').find('.box-item').css('color','yellow').attr({
+		'title': 'getTitle'
+	});
+
+	$(document).on('contextmenu', function () {
+		return false;
+	});
+
+	$('.default').on('click', function () {
+		return false;
+	});
+
+	var $bind = $('.bind');
+	$bind.on('click.bao.query', bindFn);
+	$bind.on('click.bao.query', bindFn);
+	$bind.on('click.bao.query', bindFn);
+	function bindFn() {
+		console.log('绑定事件');
+	}
+	$bind.off('click.bao.query');
+	$bind.on('bind-bao', function () {
+		console.log('自定义事件行不');
+	});
+	$bind.trigger('bind-bao');
+
+
+});
+
+
+</script>
+</head>
+<body>
+	<div id="div1" class="box">
+		div1
+	</div>
+	<div id="div2"  class="box">
+		div2
+
+	</div>
+
+	<div id="div3" title="div3" class="div3-box">
+		<span class="div-box"></span>
+		<span class="div-box"></span>
+		<span class="div-box"></span>
+		<span class="div-box"></span>
+		<div class="sub">subsubsubsub</div>
+	</div>
+
+	<div class="pp">ppp1</div>
+	<div class="pp">ppp2</div>
+	<div class="pp" id="pp3">ppp3</div>
+	<div class="pp">ppp4</div>
+
+	<ul id="ul1">
+		<li class="item">li1</li>
+		<li class="item">li2</li>
+		<li class="item">li3</li>
+		<li class="item">li4</li>
+		<li class="item">li5</li>
+	</ul>
+
+
+	<div class="box-block">
+		<a href="#" class="box-item">abiaoqi1</a>
+		<a href="#" class="box-item">abiaoqi2</a>
+		<a href="#" class="box-item">abiaoqi3</a>
+		<a href="#" class="box-item">abiaoqi4</a>
+		<a href="#" class="box-item">abiaoqi5</a>
+	</div>
+	<div class="box-block">
+		<a href="#" class="box-item">abiaoqi1</a>
+		<a href="#" class="box-item">abiaoqi2</a>
+		<a href="#" class="box-item">abiaoqi3</a>
+		<a href="#" class="box-item">abiaoqi4</a>
+		<a href="#" class="box-item">abiaoqi5</a>
+	</div>
+
+	<a href="www.baidu.com" class="default">阻止默认事件</a>
+	<div class="bind">绑定自定义事件</div>
+
+	<ul id="attr">
+		<li class="item">1111</li>
+		<li class="item">2222</li>
+		<li class="item">3333</li>
+		<li class="item">4444</li>
+	</ul>
+	<script>
+		//attr 带函数返回index值
+		$('#attr').find('.item').attr({
+			index: function (i) {
+				return i;
+			}
+		});
+	</script>
+</body>
+</html>
