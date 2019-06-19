@@ -17,8 +17,7 @@ function baoQuery ( selector ) {
 
 }
 //对象的引用
-baoQuery.fn = baoQuery.prototype;
-baoQuery.fn = {
+baoQuery.fn = baoQuery.prototype = {
 	constructor: baoQuery,
 	init: function (vArg) {
 		//所有元素, 存放一个数组里
